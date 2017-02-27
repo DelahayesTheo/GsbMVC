@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use PdoGsb;
 class FraisforfaitRestController extends Controller
 {
-    public function getLesFraisForfait($idVisiteur, $mois)
+    public function getLesFraisForfaitAction($idVisiteur, $mois)
     {
         $pdo = PdoGsb::getPdoGsb();
         $lesfrais = $pdo->getLesFraisForfait($idVisiteur, $mois);
@@ -28,7 +28,7 @@ class FraisforfaitRestController extends Controller
         return new JsonResponse($lesfrais);
     }
 
-    public function getLesIdFrais()
+    public function getLesIdFraisAction()
     {
         $pdo = PdoGsb::getPdoGsb();
         $lesid = $pdo->getLesIdFrais();
@@ -40,7 +40,7 @@ class FraisforfaitRestController extends Controller
         return new JsonResponse($lesid);
     }
 
-    public function majFraisForfait(Request $request)
+    public function majFraisForfaitAction(Request $request)
     {
         $pdo = PdoGsb::getPdoGsb();
         $idVisiteur = $request->request->get('idVisiteur');
