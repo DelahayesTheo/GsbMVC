@@ -19,7 +19,7 @@ fraisforfait :
     resource:   "FraisApiBundle:FraisforfaitRest"
     name_prefix: api_fraisforfait_
 
-typefrasiforfait :
+typefraisforfait :
     type: rest
     resource:  "FraisApiBundle:TypefraisforfaitRest"
     name_prefix: api_typefraisforfait_
