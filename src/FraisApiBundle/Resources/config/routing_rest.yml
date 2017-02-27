@@ -8,19 +8,19 @@ etat :
     type: rest
     resource:     "FraisApiBundle:EtatRest"
     name_prefix:  api_etat_
-  
-fichehorsforfait :
+
+fraishorsforfait :
     type: rest
-    resources:    "FraisApiBundle:FichehorsforfaitRest"
+    resource:    "FraisApiBundle:FraishorsforfaitRest"
     name_prefix:  api_fraishorsforfait_
 
 fraisforfait :
     type: rest
-    resources:   "FraisApiBundle:FicheforfaitRest"
+    resource:   "FraisApiBundle:FraisforfaitRest"
     name_prefix: api_fraisforfait_
 
 typefrasiforfait :
     type: rest
-    resources:  "FraisApiBundle:TypefraisforfaitRest"
+    resource:  "FraisApiBundle:TypefraisforfaitRest"
     name_prefix: api_typefraisforfait_
 
