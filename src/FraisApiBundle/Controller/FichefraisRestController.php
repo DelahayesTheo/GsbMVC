@@ -9,24 +9,24 @@ require_once ("include/class.pdogsb.inc.php");
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Response; 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use PdoGsb;
 
 class FichefraisRestController extends FOSRestController
 {
-     /**
+    /**
      * @ApiDoc(
-      * resource=true, 
-      * description="Get les mois disponibles pour un visiteur"
-      * )
+     * resource=true,
+     * description="Get les mois disponibles pour un visiteur"
+     * )
      */
     public function getLesmoisdisponiblesAction($idVisiteur)
     {
         $pdo = PdoGsb::getPdoGsb();
         $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-        
+
         if(!$lesMois)
         {
             throw new NotFoundHttpException('Mois non disponibles [idVisiteur='.$idVisiteur.']');
@@ -42,17 +42,17 @@ class FichefraisRestController extends FOSRestController
     {
         $pdo = PdoGsb::getPdoGsb();
         $lesJustificatifs = $pdo->getNbjustificatifs($idVisiteur,$mois);
-        
+
         if(!$lesJustificatifs)
         {
             throw new NotFoundHttpException('Justficatif non disponible [idVisiteur='.$idVisiteur.']');
         }
-        
+
         return new JsonResponse($lesJustificatifs);
     }
-    
+
     /**
-     * 
+     *
      * @ApiDoc(
      * resource=true,
      * description="Update le Nb de Justificatif"
@@ -65,13 +65,13 @@ class FichefraisRestController extends FOSRestController
         $mois = $request->request->get('mois');
         $nbJustificatifs = $request->request->get('nbJustificatifs');
         $pdo->majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs);
-        
+
         $response = new Response();
         $statusCode = 200;
         $response->setStatusCode($statusCode);
         return $response;
     }
-    
+
     /**
      * @ApiDoc(
      * resource=true,
@@ -82,15 +82,15 @@ class FichefraisRestController extends FOSRestController
     {
         $pdo = PdoGsb::getPdoGsb();
         $dernierMois = $pdo->dernierMoisSaisi($idVisiteur);
-        
+
         if(!$dernierMois)
         {
             throw new NotFoundHttpException('Justficatif non disponible [idVisiteur='.$idVisiteur.']');
         }
-        
+
         return new JsonResponse($dernierMois);
     }
-    
+
     /**
      * @ApiDoc(
      * resource=true,
@@ -99,17 +99,17 @@ class FichefraisRestController extends FOSRestController
      */
     public function postNouvelleslignesfraisAction(Request $request)
     {
-       $pdo = PdoGsb::getPdoGsb();
-       $idVisiteur = $request->request->get('idVisiteur');
-       $mois = $request->request->get('mois');
-       $pdo->creeNouvellesLignesFrais($idVisiteur, $mois);
-       
-       $response = new Response();
-       $statusCode = 201;
-       $response->setStatusCode($statusCode);
-       return $response;
+        $pdo = PdoGsb::getPdoGsb();
+        $idVisiteur = $request->request->get('idVisiteur');
+        $mois = $request->request->get('mois');
+        $pdo->creeNouvellesLignesFrais($idVisiteur, $mois);
+
+        $response = new Response();
+        $statusCode = 201;
+        $response->setStatusCode($statusCode);
+        return $response;
     }
-    
+
     /**
      * @ApiDoc(
      * resources=true,
@@ -120,17 +120,17 @@ class FichefraisRestController extends FOSRestController
     {
         $pdo = PdoGsb::getPdoGsb();
         $InfosFiche = $pdo->getLesInfosFicheFrais($idVisiteur,$mois);
-        
+
         if(!$InfosFiche)
         {
-            throw new NotFoundHttpException('Justficatif non disponible [idVisiteur='.$idVisiteur.']');   
+            throw new NotFoundHttpException('Justficatif non disponible [idVisiteur='.$idVisiteur.']');
         }
-        
+
         return new JsonResponse($InfosFiche);
     }
-    
+
     /**
-     * 
+     *
      * @ApiDoc(
      * resource=true,
      * description="Update l'état d'une fiche Frais"
@@ -143,7 +143,7 @@ class FichefraisRestController extends FOSRestController
         $mois = $request->request->get('mois');
         $etat = $request->request->get('etat');
         $pdo->majEtatFicheFrais($idVisiteur, $mois, $etat);
-        
+
         $response = new Response();
         $statusCode = 200;
         $response->setStatusCode($statusCode);
